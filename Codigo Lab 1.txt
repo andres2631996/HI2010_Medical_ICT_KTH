@@ -1,0 +1,30 @@
+let sample = 0
+let maximum = 0
+let new_average = 0
+let alpha = 0
+let peak2 = 0
+let average = 0
+let peak1 = 0
+let bpm = 0
+let new_sample = 0
+alpha = 0
+new_average = 0
+maximum = 0
+peak2 = sample
+average = sample
+basic.showIcon(IconNames.Square)
+basic.clearScreen()
+while (true) {
+    new_sample = pins.analogReadPin(AnalogPin.P1)
+    average = (1 * new_sample + 4 * average) / 5
+    new_average = average * (185 / 100)
+    if (new_sample > new_average && sample < new_average) {
+        peak1 = input.runningTime()
+        led.toggle(3, 3)
+        bpm = Math.round(60000 / (peak1 - peak2))
+    }
+    //led.toggle(1, 1)
+    peak2 = peak1
+    sample = new_sample
+    serial.writeLine("" + new_sample.toString() + " " + new_average.toString() + " " + bpm.toString())
+}

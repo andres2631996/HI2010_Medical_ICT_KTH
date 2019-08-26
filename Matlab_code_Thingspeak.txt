@@ -1,0 +1,14 @@
+cont=0;
+line={};
+bpm=[];
+while cont<10000
+    cont=cont+1;
+    fi=fopen('\bpm.txt','r');
+    line=fgetl(fi);
+    line=strsplit(line);
+    if length(line)>2
+        bpm(cont)=num2str(line{3});
+    else
+        bpm(cont)=num2str(line{1});
+    end
+end
